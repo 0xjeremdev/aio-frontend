@@ -185,12 +185,24 @@ const onSubmit = () => {
     color: rgb(104, 104, 104)
 }
 
+@keyframes transAnime {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 .message {
     background-color: rgb(126 193 223);
     width: 300px;
     max-width: 80%;
     padding: 16px;
     border-radius: 12px 12px 12px 0px;
+    animation-name: transAnime;
+    animation-duration: 2s;
 }
 
 .content {
@@ -201,5 +213,4 @@ const onSubmit = () => {
     font-size: 12px;
     color: rgb(82, 82, 82);
     text-align: right;
-}
-</style>
+}</style>
