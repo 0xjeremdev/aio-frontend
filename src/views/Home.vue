@@ -15,6 +15,7 @@ const chatEle = ref();
 const serverUrl = `http://${import.meta.env.VITE_URL}`;
 const socket = io(serverUrl);
 
+chatsStore.setSocket(socket);
 socket.on("connect", () => {
     socket.emit("joined", authStore.user.username);
 });

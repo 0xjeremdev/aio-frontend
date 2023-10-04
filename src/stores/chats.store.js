@@ -5,10 +5,14 @@ export const useChatsStore = defineStore({
   state: () => ({
     messages: [],
     users: [],
+    socket: null,
   }),
   actions: {
     setUsers(data) {
       this.users = [...data];
+    },
+    setSocket(sock) {
+      this.socket = sock;
     },
     setMessages(data) {
       this.messages = [...data];

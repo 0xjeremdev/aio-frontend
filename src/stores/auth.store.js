@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 import { router } from "@/router";
-import { useAlertStore } from "@/stores";
+import { useAlertStore, useChatsStore } from "@/stores";
 
 const baseUrl = `http://${import.meta.env.VITE_URL}/auth`;
 
@@ -49,7 +49,10 @@ export const useAuthStore = defineStore({
     },
     logout() {
       this.user = null;
+      const chatsStore = useChatsStore();
       localStorage.removeItem("user");
+      chatsStore.socket.disconnect();
+      chatsStore.setSocket(null);
       router.push("/account/login");
     },
   },
