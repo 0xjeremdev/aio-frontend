@@ -4,7 +4,9 @@ npm install
 or
 yarn install
 
-# 2 Run the project
+# 2 add an env file.
+
+# 3 Run the project
 
 npm run dev
 or
