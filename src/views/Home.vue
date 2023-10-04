@@ -21,12 +21,12 @@ socket.on("connect", () => {
 
 socket.on("users", (data) => {
     chatsStore.setUsers(data);
-    console.log("users", data);
 });
 
 socket.on("messages", (data) => {
-    chatsStore.setMessages(data);
-    console.log("messages", data);
+    chatsStore.setMessages(data).then(() => {
+        moveScrollbar();
+    });
 });
 
 socket.on("new_user", (data) => {
@@ -39,7 +39,7 @@ socket.on("receive_message", (data) => {
 });
 
 const moveScrollbar = () => {
-    console.log(chatEle.scrollHeight);
+    chatEle.value.scrollTop = chatEle.value.scrollHeight;
 }
 
 const onSubmit = () => {
@@ -47,8 +47,9 @@ const onSubmit = () => {
     if (text == "") return;
     msg.value = "";
     socket.emit("send_message", { username: authStore.user.username, message: text });
-    chatsStore.addMessage({ username: authStore.user.username, message: text, createdAt: new Date().toString() });
-    moveScrollbar();
+    chatsStore.addMessage({ username: authStore.user.username, message: text, createdAt: new Date().toString() }).then(() => {
+        moveScrollbar();
+    });
 }
 
 </script>
@@ -68,8 +69,8 @@ const onSubmit = () => {
                     </div>
                 </div>
                 <div class="col-md-8 p-3">
-                    <div class="chat-container" ref="chatEle">
-                        <div class="chat-list" id="chatList">
+                    <div class="chat-container">
+                        <div class="chat-list" ref="chatEle">
                             <div v-for="m in messages" class="message-item" :class="m.username == user.username && 'sent'">
                                 <div class="username" v-show="m.username != user.username">
                                     @{{ m.username }}
@@ -113,7 +114,7 @@ const onSubmit = () => {
 
 .users-list {
     padding: 16px;
-    overflow: auto;
+    overflow-y: scroll;
     height: calc(100vh - 58px - 24px - 70px);
 }
 
@@ -129,7 +130,7 @@ const onSubmit = () => {
 
 .chat-list {
     padding: 8px;
-    overflow: auto;
+    overflow-y: scroll;
     height: calc(100vh - 58px - 24px - 50px);
 }
 

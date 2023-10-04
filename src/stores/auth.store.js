@@ -6,8 +6,6 @@ import { useAlertStore } from "@/stores";
 
 const baseUrl = `http://${import.meta.env.VITE_URL}/auth`;
 
-console.log(baseUrl);
-
 export const useAuthStore = defineStore({
   id: "auth",
   state: () => ({

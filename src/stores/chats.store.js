@@ -12,12 +12,14 @@ export const useChatsStore = defineStore({
     },
     setMessages(data) {
       this.messages = [...data];
+      return Promise.resolve();
     },
     addUser(data) {
       this.users = [...this.users, data];
     },
     addMessage(data) {
       this.messages = [...this.messages, data];
+      return Promise.resolve();
     },
   },
 });
